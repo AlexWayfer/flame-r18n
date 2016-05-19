@@ -1,6 +1,6 @@
 # Flame R18n
 
-R18n helper for Flame (https://github.com/AlexWayfer/flame)
+[R18n](https://github.com/ai/r18n) helper for [Flame](https://github.com/AlexWayfer/flame)
 
 ## Using
 
