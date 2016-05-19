@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
 	s.authors     = ['Alexander Popov']
 	s.email       = ['alex.wayfer@gmail.com']
-	s.homepage    = 'https://gitlab.com/AlexWayfer/flame-r18n'
+	s.homepage    = 'https://github.com/AlexWayfer/flame-r18n'
 	s.license     = 'MIT'
 
 	s.add_dependency 'flame', '~> 4.0', '>= 4.0.0'
