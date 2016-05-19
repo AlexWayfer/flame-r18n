@@ -34,7 +34,7 @@ module Flame
 		def locales_from_env
 			locales = ::R18n::I18n.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
 			prefered_locale = params[:locale] || session[:locale]
-			locales.insert(0, prefered_locale) if prefered_locale
+			locales = [prefered_locale] | locales if prefered_locale
 			locales
 		end
 
