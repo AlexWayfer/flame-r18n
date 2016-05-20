@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
 	s.name        = 'flame-r18n'
-	s.version     = '1.0.2'
+	s.version     = '1.1.0'
 	s.date        = Date.today.to_s
 
 	s.summary     = 'R18n plugin for Flame-framework'

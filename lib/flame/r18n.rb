@@ -17,6 +17,7 @@ module Flame
 
 		def execute(method)
 			load_r18n
+			session[:locale] = preferred_locale || ::R18n.get.locale.code
 			super
 		end
 
@@ -33,9 +34,12 @@ module Flame
 
 		def locales_from_env
 			locales = ::R18n::I18n.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
-			prefered_locale = params[:locale] || session[:locale]
-			locales = [prefered_locale] | locales if prefered_locale
+			locales = [preferred_locale] | locales if preferred_locale
 			locales
+		end
+
+		def preferred_locale
+			params[:locale] || session[:locale]
 		end
 
 		def load_r18n

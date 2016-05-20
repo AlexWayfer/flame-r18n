@@ -12,5 +12,5 @@ gem 'flame-r18n', '~> 1'
 require 'flame-r18n' # or `Bundler.require`
 
 # _base_controller.rb
-include Flame::R18n
+prepend Flame::R18n # for loading before controller's execute
 ```
