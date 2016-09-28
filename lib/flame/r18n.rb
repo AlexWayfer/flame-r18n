@@ -17,7 +17,9 @@ module Flame
 
 		def execute(method)
 			load_r18n
-			session[:locale] = preferred_locale || ::R18n.get.locale.code
+			session[:locale] = (
+				preferred_locale || ::R18n.get.locale.code
+			).gsub(/^\W+|\W+$/, '')
 			super
 		end
 
