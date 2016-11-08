@@ -41,6 +41,7 @@ module Flame
 		end
 
 		def preferred_locale
+			return super if defined? super
 			params[:locale] || session[:locale]
 		end
 
