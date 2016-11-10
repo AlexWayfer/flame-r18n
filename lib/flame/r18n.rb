@@ -17,27 +17,27 @@ module Flame
 
 		def execute(method)
 			load_r18n
-			session[:locale] = (
-				preferred_locale || ::R18n.get.locale.code
-			).gsub(/^\W+|\W+$/, '')
+			session[:locale] = ::R18n.get.locale.code
 			super
 		end
 
-		private
-
-		def init_r18n
+		def init_r18n(locale)
 			::R18n::I18n.new(
-				locales_from_env,
+				Array(locale) | locales_from_env,
 				::R18n.default_places,
 				off_filters: :untranslated,
 				on_filters: :untranslated_html
 			)
 		end
 
+		def thread_locale=(locale)
+			::R18n.thread_set init_r18n locale
+		end
+
+		private
+
 		def locales_from_env
-			locales = ::R18n::I18n.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
-			locales = [preferred_locale] | locales if preferred_locale
-			locales
+			::R18n::I18n.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
 		end
 
 		def preferred_locale
@@ -52,7 +52,7 @@ module Flame
 				default_locale = config[:default_locale]
 				::R18n::I18n.default = default_locale if default_locale
 
-				init_r18n
+				init_r18n preferred_locale
 			end
 		end
 	end
