@@ -1,16 +1,20 @@
 # Flame R18n
 
-[R18n](https://github.com/ai/r18n) helper for [Flame](https://github.com/AlexWayfer/flame)
+[R18n](https://github.com/ai/r18n) helper for
+[Flame](https://github.com/AlexWayfer/flame)
 
 ## Using
 
 ```ruby
 # Gemfile
-gem 'flame-r18n', '~> 1'
+gem 'flame-r18n'
 
 # config.ru
 require 'flame-r18n' # or `Bundler.require`
 
+# app.rb
+include Flame::R18n::Configuration # for application configuration
+
 # _base_controller.rb
-prepend Flame::R18n # for loading before controller's execute
+include Flame::R18n::Initialization # for loading thread-based locale
 ```
