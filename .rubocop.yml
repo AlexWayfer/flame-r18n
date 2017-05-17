@@ -1,0 +1,9 @@
+Style/Tab:
+  Enabled: false
+Style/IndentationWidth:
+  Width: 1
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+AllCops:
+  TargetRubyVersion: 2.3
