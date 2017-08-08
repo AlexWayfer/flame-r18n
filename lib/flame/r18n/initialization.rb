@@ -34,7 +34,15 @@ module Flame
 			end
 
 			def preferred_locale
-				params[:locale] || session[:locale]
+				locale_param || session[:locale]
+			end
+
+			def locale_param
+				params[:locale] if available_locale_codes.include?(params[:locale])
+			end
+
+			def available_locale_codes
+				R18n.available_locales.map(&:code)
 			end
 
 			def load_r18n

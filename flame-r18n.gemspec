@@ -4,7 +4,7 @@ require 'date'
 
 Gem::Specification.new do |s|
 	s.name        = 'flame-r18n'
-	s.version     = '2.0.0'
+	s.version     = '2.1.0'
 	s.date        = Date.today.to_s
 
 	s.summary     = 'R18n plugin for Flame-framework'
