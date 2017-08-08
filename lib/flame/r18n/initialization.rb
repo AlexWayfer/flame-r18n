@@ -42,7 +42,7 @@ module Flame
 			end
 
 			def available_locale_codes
-				R18n.available_locales.map(&:code)
+				::R18n.available_locales.map(&:code)
 			end
 
 			def load_r18n
