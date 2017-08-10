@@ -9,13 +9,17 @@ module Flame
 			protected
 
 			def execute(method)
-				unless available_locale_codes.include?(request.path.parts.first.to_s)
+				unless request_path_with_available_locale?
 					return redirect_with_preferred_locale_in_path
 				end
 				super
 			end
 
 			private
+
+			def request_path_with_available_locale?
+				available_locale_codes.include?(request.path.parts.first.to_s)
+			end
 
 			def redirect_with_preferred_locale_in_path
 				path_with_locale = Flame::Path.merge(
@@ -26,6 +30,7 @@ module Flame
 			end
 
 			def path_without_locale
+				return request.path.to_s unless request_path_with_available_locale?
 				Flame::Path.merge(
 					request.path.parts[1..-1].unshift('/')
 				)
