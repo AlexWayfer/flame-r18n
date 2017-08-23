@@ -17,6 +17,12 @@ module Flame
 
 			private
 
+			def path_to(*args)
+				args << {} unless args.last.is_a? Hash
+				args.last[:locale] = r18n.locale.code unless args.last.include?(:locale)
+				super
+			end
+
 			def request_path_with_available_locale?
 				available_locale_codes.include?(request.path.parts.first.to_s)
 			end
