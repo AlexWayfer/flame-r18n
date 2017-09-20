@@ -4,13 +4,11 @@ module Flame
 	module R18n
 		## Module for including to controllers, mounted with `:locale` param in path
 		module LocaleInPath
-			include Flame::R18n::Initialization
-
 			protected
 
-			def execute(method)
-				unless request_path_with_available_locale?
-					return redirect_with_preferred_locale_in_path
+			def default_body
+				if response.not_found? && !request_path_with_available_locale?
+					halt redirect_with_preferred_locale_in_path
 				end
 				super
 			end

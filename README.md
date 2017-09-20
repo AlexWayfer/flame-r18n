@@ -19,5 +19,5 @@ include Flame::R18n::Configuration # for application configuration
 include Flame::R18n::Initialization # for loading thread-based locale
 
 # site/_controller.rb
-include Flame::R18n::LocaleInPath # for mounting controllers at `/:locale`
+prepend Flame::R18n::LocaleInPath # for mounting controllers at `/:locale`
 ```
