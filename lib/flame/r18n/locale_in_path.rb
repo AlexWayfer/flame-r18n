@@ -6,9 +6,14 @@ module Flame
 		module LocaleInPath
 			protected
 
+			def execute(action)
+				halt_redirect_with_preferred_locale_in_path_if_necessary
+				super
+			end
+
 			def default_body
-				if response.not_found? && !request_path_with_available_locale?
-					halt redirect_with_preferred_locale_in_path
+				if response.not_found?
+					halt_redirect_with_preferred_locale_in_path_if_necessary
 				end
 				super
 			end
@@ -44,6 +49,11 @@ module Flame
 				fullpath_parts = request.fullpath.to_s.split('/')
 				fullpath_parts[1] = locale.code
 				Flame::Path.merge fullpath_parts
+			end
+
+			def halt_redirect_with_preferred_locale_in_path_if_necessary
+				return if request_path_with_available_locale?
+				halt redirect_with_preferred_locale_in_path
 			end
 		end
 	end
