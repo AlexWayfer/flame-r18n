@@ -35,7 +35,7 @@ module Flame
 					nil, r18n.locale.code, request.fullpath
 				)
 				path_with_locale.sub!(%r{(\/)+$}, '')
-				redirect path_with_locale, 301
+				redirect path_with_locale, 302
 			end
 
 			def path_without_locale
