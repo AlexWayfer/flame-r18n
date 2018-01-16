@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'r18n-core'
-
 module Flame
 	module R18n
 		## Module for R18n in thread initialization with helper methods
@@ -12,15 +10,6 @@ module Flame
 				super
 				load_r18n
 				session[:locale] = r18n.locale.code
-			end
-
-			def init_r18n(locale)
-				::R18n::I18n.new(
-					Array(locale) | locales_from_env,
-					::R18n.default_places,
-					off_filters: :untranslated,
-					on_filters: :untranslated_html
-				)
 			end
 
 			def thread_locale=(locale)
@@ -54,6 +43,15 @@ module Flame
 
 					init_r18n preferred_locale
 				end
+			end
+
+			def init_r18n(locale)
+				::R18n::I18n.new(
+					Array(locale) | locales_from_env,
+					::R18n.default_places,
+					off_filters: :untranslated,
+					on_filters: :untranslated_html
+				)
 			end
 		end
 	end
