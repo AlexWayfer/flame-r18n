@@ -43,7 +43,7 @@ module Flame
 				path_with_locale = Flame::Path.merge(
 					nil, r18n.locale.code, request.fullpath
 				)
-				path_with_locale.sub!(%r{(\/)+$}, '')
+				path_with_locale.sub!(%r{(/)+(?=\?|$)}, '')
 				redirect path_with_locale, 302
 			end
 

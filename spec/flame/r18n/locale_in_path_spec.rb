@@ -87,6 +87,14 @@ describe Flame::R18n::LocaleInPath do
 			last_response.ok?.must_equal true
 			last_response.body.must_equal 'foo body'
 		end
+
+		describe 'root path with arguments' do
+			it 'redirects to root path with locale without extra slashes' do
+				get '/?foo'
+				last_response.redirect?.must_equal true
+				last_response.location.must_equal '/en?foo'
+			end
+		end
 	end
 
 	describe '#default_body' do
