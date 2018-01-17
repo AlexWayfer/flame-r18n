@@ -6,11 +6,19 @@ module Flame
 		module LocaleInPath
 			protected
 
+			## Patch controller execution
+			## Halt with redirect to the same URL, but with the preferred locale,
+			## if necessary
+			## @param action [Symbol] action which will be executed
 			def execute(action)
 				halt_redirect_with_preferred_locale_in_path_if_necessary
 				super
 			end
 
+			## Patch controller default body
+			## Invokes for 404
+			## Halt with redirect to the same URL, but with the preferred locale,
+			## if necessary, if current response is Not Found
 			def default_body
 				if response.not_found?
 					halt_redirect_with_preferred_locale_in_path_if_necessary
@@ -20,6 +28,7 @@ module Flame
 
 			private
 
+			## Complete returning path with locale, if necessary
 			def path_to(*args)
 				args << {} unless args.last.is_a? Hash
 				args.last[:locale] = r18n.locale.code unless args.last.include?(:locale)
@@ -38,6 +47,8 @@ module Flame
 				redirect path_with_locale, 302
 			end
 
+			## Get the current path without the preferred locale in it
+			## @return [Flame::Path] the current path without locale in it
 			def path_without_locale
 				return request.path.to_s unless request_path_with_available_locale?
 				Flame::Path.merge(
@@ -45,6 +56,9 @@ module Flame
 				)
 			end
 
+			## Get the current path with the specific locale in it
+			## @param locale [R18n::Locale] the locale that will be in the path
+			## @return [Flame::Path] the current path with the specific locale in it
 			def fullpath_with_specific_locale(locale)
 				fullpath_parts = request.fullpath.to_s.split('/')
 				fullpath_parts[1] = locale.code

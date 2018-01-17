@@ -6,12 +6,16 @@ module Flame
 		module Initialization
 			include ::R18n::Helpers
 
+			## Patch controller initialization
+			## Load R18n and set the current locale to the session
 			def initialize(*)
 				super
 				load_r18n
 				session[:locale] = r18n.locale.code
 			end
 
+			## Force change thread locale
+			## @param locale [R18n::Locale] the locale that will be set
 			def thread_locale=(locale)
 				::R18n.thread_set init_r18n locale
 			end
