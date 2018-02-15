@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 	s.homepage    = 'https://github.com/AlexWayfer/flame-r18n'
 	s.license     = 'MIT'
 
-	s.add_dependency 'flame', '>= 5.0.0.rc1', '< 6'
+	s.add_dependency 'flame', '>= 5.0.0.rc3', '< 6'
 	s.add_dependency 'r18n-core', '~> 2.2'
 
 	s.add_development_dependency 'codecov', '~> 0.1'

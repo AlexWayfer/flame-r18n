@@ -15,14 +15,10 @@ module Flame
 				super
 			end
 
-			## Patch controller default body
-			## Invokes for 404
 			## Halt with redirect to the same URL, but with the preferred locale,
 			## if necessary, if current response is Not Found
-			def default_body
-				if response.not_found?
-					halt_redirect_with_preferred_locale_in_path_if_necessary
-				end
+			def not_found
+				halt_redirect_with_preferred_locale_in_path_if_necessary
 				super
 			end
 
