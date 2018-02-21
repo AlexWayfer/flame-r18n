@@ -33,17 +33,15 @@ describe Flame::R18n::LocaleInPath do
 				path_to :foo, locale: 'de'
 			end
 
-			## test path_without_locale
-
-			def test_path_without_locale
-				path_without_locale
+			def test_fullpath_without_locale
+				fullpath_without_locale
 			end
 
 			protected
 
 			def execute(action)
-				if request.path == '/nb/test_path_without_locale'
-					return body path_without_locale
+				if request.path.to_s.start_with?('/nb/test_fullpath_without_locale')
+					return body fullpath_without_locale
 				end
 				super
 			end
@@ -135,20 +133,28 @@ describe Flame::R18n::LocaleInPath do
 		end
 	end
 
-	describe '#path_without_locale' do
+	describe '#fullpath_without_locale' do
 		describe 'available locale in requested path' do
 			it 'returns path without locale' do
-				get '/de/test_path_without_locale'
+				get '/de/test_fullpath_without_locale'
 				last_response.ok?.must_equal true
-				last_response.body.must_equal '/test_path_without_locale'
+				last_response.body.must_equal '/test_fullpath_without_locale'
+			end
+
+			describe 'with query string in requested path' do
+				it 'returns full path without locale' do
+					get '/de/test_fullpath_without_locale?foo=bar'
+					last_response.ok?.must_equal true
+					last_response.body.must_equal '/test_fullpath_without_locale?foo=bar'
+				end
 			end
 		end
 
 		describe 'no available locale in requested path' do
 			it 'returns current path' do
-				get '/nb/test_path_without_locale'
+				get '/nb/test_fullpath_without_locale'
 				last_response.ok?.must_equal true
-				last_response.body.must_equal '/nb/test_path_without_locale'
+				last_response.body.must_equal '/nb/test_fullpath_without_locale'
 			end
 		end
 	end
