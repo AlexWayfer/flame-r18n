@@ -45,10 +45,10 @@ module Flame
 
 			## Get the current path without the preferred locale in it
 			## @return [Flame::Path] the current path without locale in it
-			def path_without_locale
-				return request.path.to_s unless request_path_with_available_locale?
+			def fullpath_without_locale
+				return request.fullpath.to_s unless request_path_with_available_locale?
 				Flame::Path.merge(
-					request.path.parts[1..-1].unshift('/')
+					request.fullpath.to_s.split('/')[2..-1].unshift('/')
 				)
 			end
 
