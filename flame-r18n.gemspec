@@ -19,16 +19,16 @@ Gem::Specification.new do |s|
 	s.license     = 'MIT'
 
 	s.add_dependency 'flame', '>= 5.0.0.rc3', '< 6'
-	s.add_dependency 'r18n-core', '~> 2.2'
+	s.add_dependency 'r18n-core', '~> 3.0'
 
 	s.add_development_dependency 'codecov', '~> 0.1'
-	s.add_development_dependency 'minitest', '~> 5'
-	s.add_development_dependency 'minitest-reporters', '~> 1'
+	s.add_development_dependency 'minitest', '~> 5.10'
+	s.add_development_dependency 'minitest-reporters', '~> 1.1'
 	s.add_development_dependency 'pry-byebug', '~> 3.5'
 	s.add_development_dependency 'rack-test', '~> 0.8'
-	s.add_development_dependency 'rake', '~> 12'
-	s.add_development_dependency 'rubocop', '~> 0.52'
-	s.add_development_dependency 'simplecov', '~> 0'
+	s.add_development_dependency 'rake', '~> 12.0'
+	s.add_development_dependency 'rubocop', '~> 0.54'
+	s.add_development_dependency 'simplecov', '~> 0.15'
 
 	s.files = Dir[File.join('lib', '**', '*')]
 end
