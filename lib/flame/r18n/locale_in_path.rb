@@ -11,14 +11,9 @@ module Flame
 			## if necessary
 			## @param action [Symbol] action which will be executed
 			def execute(action)
-				halt_redirect_with_preferred_locale_in_path_if_necessary
-				super
-			end
-
-			## Halt with redirect to the same URL, but with the preferred locale,
-			## if necessary, if current response is Not Found
-			def not_found
-				halt_redirect_with_preferred_locale_in_path_if_necessary
+				unless request_path_with_available_locale?
+					return halt redirect_with_preferred_locale_in_path
+				end
 				super
 			end
 
@@ -59,11 +54,6 @@ module Flame
 				fullpath_parts = request.fullpath.to_s.split('/')
 				fullpath_parts[1] = locale.code
 				Flame::Path.merge fullpath_parts
-			end
-
-			def halt_redirect_with_preferred_locale_in_path_if_necessary
-				return if request_path_with_available_locale?
-				halt redirect_with_preferred_locale_in_path
 			end
 		end
 	end
