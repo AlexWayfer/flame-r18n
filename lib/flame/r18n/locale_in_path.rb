@@ -12,7 +12,7 @@ module Flame
 			## @param action [Symbol] action which will be executed
 			def execute(action)
 				unless request_path_with_available_locale?
-					return halt redirect_with_preferred_locale_in_path
+					return halt redirect_to_path_with_preferred_locale
 				end
 				super
 			end
@@ -30,12 +30,12 @@ module Flame
 				available_locale_codes.include?(request.path.parts.first.to_s)
 			end
 
-			def redirect_with_preferred_locale_in_path
-				path_with_locale = Flame::Path.merge(
-					nil, r18n.locale.code, request.fullpath
-				)
-				path_with_locale.sub!(%r{(/)+(?=\?|$)}, '')
-				redirect path_with_locale, 302
+			def redirect_to_path_with_preferred_locale
+				redirect path_with_preferred_locale.sub(%r{(/)+(?=\?|$)}, ''), 302
+			end
+
+			def path_with_preferred_locale
+				Flame::Path.merge(nil, r18n.locale.code, request.fullpath)
 			end
 
 			## Get the current path without the preferred locale in it
