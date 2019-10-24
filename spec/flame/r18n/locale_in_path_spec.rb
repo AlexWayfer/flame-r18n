@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
+require_relative '../../spec_helper'
+
 describe Flame::R18n::LocaleInPath do
-	module LocaleInPath
-		class CommonController < Flame::Controller
+	let(:common_controller) do
+		Class.new(Flame::Controller) do
 			include Flame::R18n::Initialization
 		end
+	end
 
-		class SiteController < CommonController
+	let(:site_controller) do
+		Class.new(common_controller) do
 			prepend Flame::R18n::LocaleInPath
 		end
+	end
 
-		class TestController < SiteController
+	let(:example_controller) do
+		Class.new(site_controller) do
 			def index
 				'index of site'
 			end
@@ -55,12 +61,17 @@ describe Flame::R18n::LocaleInPath do
 				fullpath_with_specific_locale(de_locale)
 			end
 		end
+	end
 
-		class Application < Flame::Application
-			include Flame::R18n::Configuration
+	let(:application) do
+		site_controller = self.site_controller
+		example_controller = self.example_controller
 
-			mount SiteController, '/:?locale' do
-				mount TestController, '/'
+		Class.new(Flame::Application) do
+			::R18n.default_places = File.join config[:root_dir], 'locales'
+
+			mount site_controller, '/:?locale' do
+				mount example_controller, '/'
 			end
 		end
 	end
@@ -68,9 +79,7 @@ describe Flame::R18n::LocaleInPath do
 	require 'rack/test'
 	include Rack::Test::Methods
 
-	def app
-		LocaleInPath::Application
-	end
+	let(:app) { application }
 
 	describe '#execute' do
 		it 'redirects to path with locale when no locale in requested path' do

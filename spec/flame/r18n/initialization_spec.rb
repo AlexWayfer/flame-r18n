@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
+require_relative '../../spec_helper'
+
 describe Flame::R18n::Initialization do
-	module Initialization
-		class TestController < Flame::Controller
+	let(:controller_class) do
+		Class.new(Flame::Controller) do
 			include Flame::R18n::Initialization
 		end
 	end
 
 	let(:application) do
-		Class.new(Flame::Application) do
-			include Flame::R18n::Configuration
+		controller_class = self.controller_class
 
-			mount Initialization::TestController
+		Class.new(Flame::Application) do
+			::R18n.default_places = File.join config[:root_dir], 'locales'
+
+			mount controller_class
 		end
 	end
 
@@ -24,13 +28,16 @@ describe Flame::R18n::Initialization do
 		}
 	end
 
-	let(:dispatcher) { Flame::Dispatcher.new(application, env) }
-
-	def controller_init
-		Initialization::TestController.new(dispatcher)
+	def initialize_controller
+		controller_class.new(Flame::Dispatcher.new(application, env))
 	end
 
-	let(:controller) { controller_init }
+	let(:controller) { initialize_controller }
+
+	before do
+		## For application preloading with `Flame::Dispatcher`
+		application
+	end
 
 	it 'includes ::R18n::Helpers' do
 		controller.must_respond_to :r18n
@@ -44,7 +51,7 @@ describe Flame::R18n::Initialization do
 				def count_cache_cleared_times
 					cache_cleared_times = 0
 					R18n.stub :clear_cache!, -> { cache_cleared_times += 1 } do
-						5.times { controller_init }
+						5.times { initialize_controller }
 					end
 					cache_cleared_times
 				end
@@ -64,14 +71,6 @@ describe Flame::R18n::Initialization do
 						count_cache_cleared_times.must_equal 0
 					end
 				end
-			end
-
-			it 'sets default locale from application config' do
-				original_default = ::R18n::I18n.default
-				application.config[:default_locale] = 'it'
-				controller_init
-				::R18n::I18n.default.must_equal 'it'
-				::R18n::I18n.default = original_default
 			end
 
 			it 'sets locale from param' do

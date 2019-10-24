@@ -41,12 +41,7 @@ module Flame
 			def load_r18n
 				::R18n.clear_cache! if config[:environment] == 'development'
 
-				::R18n.thread_set do
-					default_locale = config[:default_locale]
-					::R18n::I18n.default = default_locale if default_locale
-
-					init_r18n preferred_locale
-				end
+				self.thread_locale = preferred_locale
 			end
 
 			def init_r18n(locale)
