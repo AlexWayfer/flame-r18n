@@ -20,8 +20,10 @@ gem 'flame-r18n'
 # config.ru
 require 'flame-r18n' # or `Bundler.require`
 
-# app.rb
-include Flame::R18n::Configuration # for application configuration
+# For application configuration
+# config/processors/r18n.rb
+::R18n.default_places = File.join config[:root_dir], 'locales'
+::R18n::I18n.default = 'en'
 
 # _controller.rb
 include Flame::R18n::Initialization # for loading thread-based locale
