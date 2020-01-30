@@ -14,6 +14,7 @@ module Flame
 				unless request_path_with_available_locale?
 					return halt redirect_to_path_with_preferred_locale
 				end
+
 				super
 			end
 
@@ -42,6 +43,7 @@ module Flame
 			## @return [Flame::Path] the current path without locale in it
 			def fullpath_without_locale
 				return request.fullpath.to_s unless request_path_with_available_locale?
+
 				Flame::Path.merge(
 					request.fullpath.to_s.split('/')[2..-1].unshift('/')
 				)
