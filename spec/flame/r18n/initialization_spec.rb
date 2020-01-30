@@ -3,17 +3,36 @@
 require_relative '../../spec_helper'
 
 describe Flame::R18n::Initialization do
+	module R18n
+		module Locales
+			class EnUS < En
+				set sublocales: %w[en]
+			end
+
+			class RuRU < Ru
+				set sublocales: %w[ru]
+			end
+
+			class DeDE < De
+				set sublocales: %w[de]
+			end
+		end
+	end
+
 	let(:controller_class) do
 		Class.new(Flame::Controller) do
 			include Flame::R18n::Initialization
 		end
 	end
 
+	let(:locales_dir) { 'locales' }
+
 	let(:application) do
+		locales_dir = self.locales_dir
 		controller_class = self.controller_class
 
 		Class.new(Flame::Application) do
-			::R18n.default_places = File.join config[:root_dir], 'locales'
+			::R18n.default_places = File.join config[:root_dir], locales_dir
 
 			mount controller_class
 		end
@@ -83,9 +102,20 @@ describe Flame::R18n::Initialization do
 				controller.r18n.locale.code.must_equal 'it'
 			end
 
-			it 'sets locales from HTTP header' do
-				env['HTTP_ACCEPT_LANGUAGE'] = 'de,en;q=0.9,ru;q=0.8'
-				controller.r18n.locales.map(&:code).must_equal %w[de en ru]
+			describe 'from HTTP header' do
+				it 'sets locales from HTTP header' do
+					env['HTTP_ACCEPT_LANGUAGE'] = 'de,en;q=0.9,ru;q=0.8'
+					controller.r18n.locales.map(&:code).must_equal %w[de en ru]
+				end
+
+				describe 'locales with regions' do
+					let(:locales_dir) { 'locales_with_regions' }
+
+					it 'set locale with region by locale without region' do
+						env['HTTP_ACCEPT_LANGUAGE'] = 'de,en;q=0.9,ru;q=0.8,foo;q=0.7'
+						controller.r18n.locale.code.must_equal 'de-DE'
+					end
+				end
 			end
 
 			it 'turns R18n :untranslated filter off' do
