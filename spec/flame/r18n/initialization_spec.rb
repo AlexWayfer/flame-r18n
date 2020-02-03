@@ -5,17 +5,17 @@ require_relative '../../spec_helper'
 describe Flame::R18n::Initialization do
 	module R18n
 		module Locales
-			class EnUS < En
-				set sublocales: %w[en]
-			end
-
 			class RuRU < Ru
 				set sublocales: %w[ru]
 			end
 
+			Ru.set sublocales: %w[ru-RU]
+
 			class DeDE < De
 				set sublocales: %w[de]
 			end
+
+			De.set sublocales: %w[de-DE]
 		end
 	end
 
@@ -105,7 +105,8 @@ describe Flame::R18n::Initialization do
 			describe 'from HTTP header' do
 				it 'sets locales from HTTP header' do
 					env['HTTP_ACCEPT_LANGUAGE'] = 'de,en;q=0.9,ru;q=0.8'
-					controller.r18n.locales.map(&:code).must_equal %w[de en ru]
+					controller.r18n.locales.map(&:code)
+						.must_equal %w[de de-DE en en-US en-GB en-AU ru ru-RU]
 				end
 
 				describe 'locales with regions' do
