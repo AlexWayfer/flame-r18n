@@ -18,7 +18,7 @@ describe Flame::R18n::LocaleInPath do
 	let(:example_controller) do
 		Class.new(site_controller) do
 			def index
-				'index of site'
+				# 'index of site'
 			end
 
 			def foo(_arg = nil)
