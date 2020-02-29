@@ -19,3 +19,9 @@ test_task:
   environment:
     CODECOV_TOKEN: ENCRYPTED[cdad391413f3dda9fa77999200291c100829553d0ecf1b27ee4eb66affdb01f8eb8f0a3780c1ae3d3ac955c0d6bbe172]
   test_script: bundle exec rake
+
+rubocop_task:
+  container:
+    image: ruby:2.7
+  <<: *bundle_cache
+  rubocop_script: bundle exec rubocop

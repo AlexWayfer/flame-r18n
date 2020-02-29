@@ -49,6 +49,7 @@ describe Flame::R18n::LocaleInPath do
 				if request.path.to_s.start_with?('/nb/test_fullpath_without_locale')
 					return body fullpath_without_locale
 				end
+
 				super
 			end
 
