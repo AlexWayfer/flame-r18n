@@ -22,11 +22,10 @@ Gem::Specification.new do |s|
 	s.add_dependency 'r18n-core', '~> 4.0'
 
 	s.add_development_dependency 'codecov', '~> 0.1.16'
-	s.add_development_dependency 'minitest', '~> 5.10'
-	s.add_development_dependency 'minitest-reporters', '~> 1.1'
 	s.add_development_dependency 'pry-byebug', '~> 3.5'
 	s.add_development_dependency 'rack-test', '~> 1.0'
 	s.add_development_dependency 'rake', '~> 13.0'
+	s.add_development_dependency 'rspec', '~> 3.0'
 	s.add_development_dependency 'rubocop', '~> 0.80.0'
 	s.add_development_dependency 'simplecov', '~> 0.18.0'
 

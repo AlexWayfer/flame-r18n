@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../spec_helper'
-
 describe Flame::R18n::LocaleInPath do
 	let(:common_controller) do
 		Class.new(Flame::Controller) do
@@ -82,98 +80,113 @@ describe Flame::R18n::LocaleInPath do
 
 	let(:app) { application }
 
+	before do
+		get path
+	end
+
 	describe '#execute' do
-		it 'redirects to path with locale when no locale in requested path' do
-			get '/foo'
-			last_response.redirect?.must_equal true
-			last_response.location.must_equal '/en/foo'
+		describe 'redirect to path with locale when no locale in requested path' do
+			let(:path) { '/foo' }
+
+			it { expect(last_response.redirect?).to be true }
+			it { expect(last_response.location).to eq '/en/foo' }
 		end
 
-		it "doesn't redirect when available locale in requested path" do
-			get '/en/foo'
-			last_response.redirect?.must_equal false
-			last_response.ok?.must_equal true
-			last_response.body.must_equal 'foo body'
+		describe 'no redirect when available locale in requested path' do
+			let(:path) { '/en/foo' }
+
+			it { expect(last_response.redirect?).to be false }
+			it { expect(last_response.ok?).to be true }
+			it { expect(last_response.body).to eq 'foo body' }
 		end
 
 		describe 'root path with arguments' do
-			it 'redirects to root path with locale without extra slashes' do
-				get '/?foo'
-				last_response.redirect?.must_equal true
-				last_response.location.must_equal '/en?foo'
-			end
+			let(:path) { '/?foo' }
+
+			it { expect(last_response.redirect?).to be true }
+			it { expect(last_response.location).to eq '/en?foo' }
 		end
 	end
 
 	describe '#default_body' do
-		it 'redirects to path with locale when page without available locale' \
-		   ' not found' do
-			get '/bar'
-			last_response.redirect?.must_equal true
-			last_response.location.must_equal '/en/bar'
+		describe 'redirect to path with locale when page without available locale' \
+		         ' not found' do
+			let(:path) { '/bar' }
+
+			it { expect(last_response.redirect?).to be true }
+			it { expect(last_response.location).to eq '/en/bar' }
 		end
 
-		it "doesn't redirect when available locale in nonexistent requested path" do
-			get '/en/bar'
-			last_response.redirect?.must_equal false
-			last_response.not_found?.must_equal true
+		describe 'no redirect when available locale' \
+		         ' in nonexistent requested path' do
+			let(:path) { '/en/bar' }
+
+			it { expect(last_response.redirect?).to be false }
+			it { expect(last_response.not_found?).to be true }
 		end
 	end
 
 	describe '#path_to' do
-		describe 'when no Hash in arguments' do
-			it 'builds path with current locale' do
-				get '/it/test_path_to_without_arguments'
-				last_response.body.must_equal '/it/foo'
-			end
+		subject { last_response.body }
+
+		context 'when no Hash in arguments' do
+			let(:path) { '/it/test_path_to_without_arguments' }
+
+			it { is_expected.to eq '/it/foo' }
 		end
 
-		describe 'when Hash without `locale` in arguments' do
-			it 'builds path with current locale' do
-				get '/it/test_path_to_with_arguments'
-				last_response.body.must_equal '/it/foo/2'
-			end
+		context 'when Hash without `locale` in arguments' do
+			let(:path) { '/it/test_path_to_with_arguments' }
+
+			it { is_expected.to eq '/it/foo/2' }
 		end
 
-		describe 'when Hash with `locale` in arguments' do
-			it "doesn't build path with current locale" do
-				get '/it/test_path_to_with_locale_argument'
-				last_response.body.must_equal '/de/foo'
-			end
+		context 'when Hash with `locale` in arguments' do
+			let(:path) { '/it/test_path_to_with_locale_argument' }
+
+			it { is_expected.to eq '/de/foo' }
 		end
 	end
 
 	describe '#fullpath_without_locale' do
-		describe 'available locale in requested path' do
-			it 'returns path without locale' do
-				get '/de/test_fullpath_without_locale'
-				last_response.ok?.must_equal true
-				last_response.body.must_equal '/test_fullpath_without_locale'
+		context 'available locale in requested path' do
+			describe 'path without locale' do
+				let(:path) { '/de/test_fullpath_without_locale' }
+
+				it { expect(last_response.ok?).to be true }
+				it { expect(last_response.body).to eq '/test_fullpath_without_locale' }
 			end
 
-			describe 'with query string in requested path' do
-				it 'returns full path without locale' do
-					get '/de/test_fullpath_without_locale?foo=bar'
-					last_response.ok?.must_equal true
-					last_response.body.must_equal '/test_fullpath_without_locale?foo=bar'
+			context 'with query string in requested path' do
+				let(:path) { '/de/test_fullpath_without_locale?foo=bar' }
+
+				it { expect(last_response.ok?).to be true }
+				it do
+					expect(last_response.body).to eq(
+						'/test_fullpath_without_locale?foo=bar'
+					)
 				end
 			end
 		end
 
-		describe 'no available locale in requested path' do
-			it 'returns current path' do
-				get '/nb/test_fullpath_without_locale'
-				last_response.ok?.must_equal true
-				last_response.body.must_equal '/nb/test_fullpath_without_locale'
+		context 'when no available locale in requested path' do
+			let(:path) { '/nb/test_fullpath_without_locale' }
+
+			it { expect(last_response.ok?).to be true }
+			it do
+				expect(last_response.body).to eq '/nb/test_fullpath_without_locale'
 			end
 		end
 	end
 
 	describe '#fullpath_with_specific_locale' do
-		it 'returns path with specific locale' do
-			get '/it/test_fullpath_with_specific_locale'
-			last_response.ok?.must_equal true
-			last_response.body.must_equal '/de/test_fullpath_with_specific_locale'
+		let(:path) { '/it/test_fullpath_with_specific_locale' }
+
+		it { expect(last_response.ok?).to be true }
+		it do
+			expect(last_response.body).to eq(
+				'/de/test_fullpath_with_specific_locale'
+			)
 		end
 	end
 end
