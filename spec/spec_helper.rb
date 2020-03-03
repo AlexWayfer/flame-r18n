@@ -12,8 +12,3 @@ require 'pry-byebug'
 
 require_relative '../lib/flame/r18n'
 require 'flame'
-
-require 'minitest/autorun'
-
-require 'minitest/reporters'
-Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new]
