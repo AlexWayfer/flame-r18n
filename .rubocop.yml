@@ -5,6 +5,13 @@ Layout/IndentationWidth:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
 AllCops:
   TargetRubyVersion: 2.4
 
