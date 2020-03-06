@@ -8,10 +8,11 @@ Gem::Specification.new do |s|
 	s.date        = Date.today.to_s
 
 	s.summary     = 'R18n plugin for Flame-framework'
-	s.description = 'Flame extension which provides i18n support' \
-	                ' to translate your web application.' \
-	                ' It is a wrapper for R18n core library.' \
-	                ' See R18n documentation for more information.'
+	s.description = <<~DESC
+		Flame extension which provides i18n support to translate
+		your web application. It is a wrapper for R18n core library.
+		See R18n documentation for more information.
+	DESC
 
 	s.authors     = ['Alexander Popov']
 	s.email       = ['alex.wayfer@gmail.com']
