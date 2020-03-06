@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 describe Flame::R18n::LocaleInPath do
+	require 'rack/test'
+	include Rack::Test::Methods
+
 	let(:common_controller) do
 		Class.new(Flame::Controller) do
 			include Flame::R18n::Initialization
@@ -75,9 +78,6 @@ describe Flame::R18n::LocaleInPath do
 		end
 	end
 
-	require 'rack/test'
-	include Rack::Test::Methods
-
 	let(:app) { application }
 
 	before do
@@ -149,7 +149,7 @@ describe Flame::R18n::LocaleInPath do
 	end
 
 	describe '#fullpath_without_locale' do
-		context 'available locale in requested path' do
+		context 'when locale is available in requested path' do
 			describe 'path without locale' do
 				let(:path) { '/de/test_fullpath_without_locale' }
 
@@ -161,6 +161,7 @@ describe Flame::R18n::LocaleInPath do
 				let(:path) { '/de/test_fullpath_without_locale?foo=bar' }
 
 				it { expect(last_response.ok?).to be true }
+
 				it do
 					expect(last_response.body).to eq(
 						'/test_fullpath_without_locale?foo=bar'
@@ -173,6 +174,7 @@ describe Flame::R18n::LocaleInPath do
 			let(:path) { '/nb/test_fullpath_without_locale' }
 
 			it { expect(last_response.ok?).to be true }
+
 			it do
 				expect(last_response.body).to eq '/nb/test_fullpath_without_locale'
 			end
@@ -183,6 +185,7 @@ describe Flame::R18n::LocaleInPath do
 		let(:path) { '/it/test_fullpath_with_specific_locale' }
 
 		it { expect(last_response.ok?).to be true }
+
 		it do
 			expect(last_response.body).to eq(
 				'/de/test_fullpath_with_specific_locale'
