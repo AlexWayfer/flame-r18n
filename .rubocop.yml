@@ -1,3 +1,7 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
 Layout/Tab:
   Enabled: false
 Layout/IndentationWidth:
@@ -11,6 +15,9 @@ Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
   Enabled: true
+
+RSpec/NestedGroups:
+  Max: 5
 
 AllCops:
   TargetRubyVersion: 2.4

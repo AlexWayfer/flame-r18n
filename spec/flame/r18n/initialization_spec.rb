@@ -1,20 +1,8 @@
 # frozen_string_literal: true
 
 describe Flame::R18n::Initialization do
-	module R18n
-		module Locales
-			class RuRU < Ru
-				set sublocales: %w[ru]
-			end
-
-			Ru.set sublocales: %w[ru-RU]
-
-			class DeDE < De
-				set sublocales: %w[de]
-			end
-
-			De.set sublocales: %w[de-DE]
-		end
+	def initialize_controller
+		controller_class.new(Flame::Dispatcher.new(application, env))
 	end
 
 	let(:controller_class) do
@@ -52,15 +40,27 @@ describe Flame::R18n::Initialization do
 	let(:rack_session) { {} }
 	let(:accept_language) {}
 
-	def initialize_controller
-		controller_class.new(Flame::Dispatcher.new(application, env))
-	end
-
 	let(:controller) { initialize_controller }
 
 	before do
 		## For application preloading with `Flame::Dispatcher`
 		application
+
+		stub_const(
+			'R18n::Locales::RuRU', Class.new(R18n::Locales::Ru) do
+				set sublocales: %w[ru]
+			end
+		)
+
+		R18n::Locales::Ru.set sublocales: %w[ru-RU]
+
+		stub_const(
+			'R18n::Locales::DeDE', Class.new(R18n::Locales::De) do
+				set sublocales: %w[de]
+			end
+		)
+
+		R18n::Locales::De.set sublocales: %w[de-DE]
 	end
 
 	describe 'controller includes ::R18n::Helpers' do
@@ -82,7 +82,7 @@ describe Flame::R18n::Initialization do
 					initialize_controller_times.times { initialize_controller }
 				end
 
-				describe 'in development environment' do
+				context 'when environment is development' do
 					let(:environment) { 'development' }
 
 					it do
@@ -91,7 +91,7 @@ describe Flame::R18n::Initialization do
 					end
 				end
 
-				describe 'in production environment' do
+				context 'when environment is production' do
 					let(:environment) { 'production' }
 
 					it { expect(R18n).not_to have_received(:clear_cache!) }
@@ -100,19 +100,19 @@ describe Flame::R18n::Initialization do
 
 			subject { controller.r18n.locale.code }
 
-			context 'locale in param' do
+			context 'with locale in param' do
 				let(:query_string) { 'locale=de' }
 
 				it { is_expected.to eq 'de' }
 			end
 
-			context 'locale in session' do
+			context 'with locale in session' do
 				let(:rack_session) { { locale: 'it' } }
 
 				it { is_expected.to eq 'it' }
 			end
 
-			context 'locale in HTTP header' do
+			context 'with locale in HTTP header' do
 				let(:accept_language) { 'de,en;q=0.9,ru;q=0.8' }
 
 				it do
@@ -156,11 +156,11 @@ describe Flame::R18n::Initialization do
 	end
 
 	describe '#thread_locale=' do
+		subject { controller.r18n.locale.code }
+
 		before do
 			controller.thread_locale = 'ru'
 		end
-
-		subject { controller.r18n.locale.code }
 
 		it { is_expected.to eq 'ru' }
 	end
