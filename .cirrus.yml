@@ -8,10 +8,22 @@ bundle_cache: &bundle_cache
       - cat *.gemspec
   install_script: bundle update
 
+rubocop_task:
+  container:
+    image: ruby:latest
+  <<: *bundle_cache
+  rubocop_script: bundle exec rubocop
+  only_if: ($CIRRUS_BRANCH == 'master') ||
+    changesInclude(
+      '.cirrus.yml', 'Gemfile', 'Rakefile', '.rubocop.yml', '*.gemspec',
+      '**/*.rb', '**/*.ru'
+    )
+
 test_task:
+  depends_on:
+    - rubocop
   container:
     matrix:
-      image: ruby:2.4
       image: ruby:2.5
       image: ruby:2.6
       image: ruby:2.7
@@ -19,9 +31,8 @@ test_task:
   environment:
     CODECOV_TOKEN: ENCRYPTED[cdad391413f3dda9fa77999200291c100829553d0ecf1b27ee4eb66affdb01f8eb8f0a3780c1ae3d3ac955c0d6bbe172]
   test_script: bundle exec rake
-
-rubocop_task:
-  container:
-    image: ruby:2.7
-  <<: *bundle_cache
-  rubocop_script: bundle exec rubocop
+  only_if: ($CIRRUS_BRANCH == 'master') ||
+    changesInclude(
+      '.cirrus.yml', 'Gemfile', 'Rakefile', '.rspec', '*.gemspec',
+      '**/*.rb', '**/*.ru', '**/*.yml', '**/*.yaml'
+    )
