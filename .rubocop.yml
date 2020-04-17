@@ -7,18 +7,22 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
-Layout/Tab:
-  Enabled: false
+Layout/IndentationStyle:
+  EnforcedStyle: tabs
 Layout/IndentationWidth:
   Width: 1
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
 
 Style/HashEachMethods:
   Enabled: true
 Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
+  Enabled: true
+Style/ExponentialNotation:
   Enabled: true
 
 RSpec/NestedGroups:
