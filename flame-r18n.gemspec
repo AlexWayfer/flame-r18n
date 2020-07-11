@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 	s.add_dependency 'flame', '>= 5.0.0.rc3', '< 6'
 	s.add_dependency 'r18n-core', '~> 4.0'
 
-	s.add_development_dependency 'codecov', '~> 0.1.16'
+	s.add_development_dependency 'codecov', '~> 0.2.0'
 	s.add_development_dependency 'pry-byebug', '~> 3.5'
 	s.add_development_dependency 'rack-test', '~> 1.0'
 	s.add_development_dependency 'rake', '~> 13.0'
