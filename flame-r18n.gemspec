@@ -1,38 +1,50 @@
 # frozen_string_literal: true
 
-require 'date'
+Gem::Specification.new do |spec|
+	spec.name        = 'flame-r18n'
+	spec.version     = '2.3.1'
 
-Gem::Specification.new do |s|
-	s.name        = 'flame-r18n'
-	s.version     = '2.3.1'
-	s.date        = Date.today.to_s
-
-	s.summary     = 'R18n plugin for Flame-framework'
-	s.description = <<~DESC
+	spec.summary     = 'R18n plugin for Flame-framework'
+	spec.description = <<~DESC
 		Flame extension which provides i18n support to translate
 		your web application. It is a wrapper for R18n core library.
 		See R18n documentation for more information.
 	DESC
 
-	s.authors     = ['Alexander Popov']
-	s.email       = ['alex.wayfer@gmail.com']
-	s.homepage    = 'https://github.com/AlexWayfer/flame-r18n'
-	s.license     = 'MIT'
+	spec.authors     = ['Alexander Popov']
+	spec.email       = ['alex.wayfer@gmail.com']
+	spec.license     = 'MIT'
 
-	s.required_ruby_version = '~> 2.5'
+	source_code_uri = 'https://github.com/AlexWayfer/flame-r18n'
 
-	s.add_dependency 'flame', '>= 5.0.0.rc3', '< 6'
-	s.add_dependency 'r18n-core', '~> 4.0'
+	spec.homepage = source_code_uri
 
-	s.add_development_dependency 'codecov', '~> 0.2.1'
-	s.add_development_dependency 'pry-byebug', '~> 3.5'
-	s.add_development_dependency 'rack-test', '~> 1.0'
-	s.add_development_dependency 'rake', '~> 13.0'
-	s.add_development_dependency 'rspec', '~> 3.0'
-	s.add_development_dependency 'rubocop', '~> 0.81.0'
-	s.add_development_dependency 'rubocop-performance', '~> 1.5'
-	s.add_development_dependency 'rubocop-rspec', '~> 1.38'
-	s.add_development_dependency 'simplecov', '~> 0.18.0'
+	spec.metadata['source_code_uri'] = source_code_uri
 
-	s.files = Dir[File.join('lib', '**', '*')]
+	spec.metadata['homepage_uri'] = spec.homepage
+
+	spec.metadata['changelog_uri'] =
+		'https://github.com/AlexWayfer/flame-r18n/blob/master/CHANGELOG.md'
+
+	spec.files = Dir['lib/**/*.rb', 'README.md', 'LICENSE.txt', 'CHANGELOG.md']
+
+	spec.required_ruby_version = '~> 2.5'
+
+	spec.add_dependency 'flame', '>= 5.0.0.rc3', '< 6'
+	spec.add_dependency 'r18n-core', '~> 4.0'
+
+	spec.add_development_dependency 'pry-byebug', '~> 3.9'
+
+	spec.add_development_dependency 'bundler', '~> 2.0'
+	spec.add_development_dependency 'gem_toys', '~> 0.3.0'
+	spec.add_development_dependency 'toys', '~> 0.10.4'
+
+	spec.add_development_dependency 'codecov', '~> 0.2.1'
+	spec.add_development_dependency 'rack-test', '~> 1.0'
+	spec.add_development_dependency 'rspec', '~> 3.9'
+	spec.add_development_dependency 'simplecov', '~> 0.18.0'
+
+	spec.add_development_dependency 'rubocop', '~> 0.88.0'
+	spec.add_development_dependency 'rubocop-performance', '~> 1.0'
+	spec.add_development_dependency 'rubocop-rspec', '~> 1.0'
 end

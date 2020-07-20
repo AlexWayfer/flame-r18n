@@ -109,16 +109,14 @@ describe Flame::R18n::LocaleInPath do
 	end
 
 	describe '#default_body' do
-		describe 'redirect to path with locale when page without available locale' \
-		         ' not found' do
+		describe 'redirect to path with locale when page without available locale not found' do
 			let(:path) { '/bar' }
 
 			it { expect(last_response.redirect?).to be true }
 			it { expect(last_response.location).to eq '/en/bar' }
 		end
 
-		describe 'no redirect when available locale' \
-		         ' in nonexistent requested path' do
+		describe 'no redirect when available locale in nonexistent requested path' do
 			let(:path) { '/en/bar' }
 
 			it { expect(last_response.redirect?).to be false }
