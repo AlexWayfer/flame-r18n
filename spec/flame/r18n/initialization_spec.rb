@@ -73,6 +73,8 @@ describe Flame::R18n::Initialization do
 
 	describe '#initialize' do
 		describe 'loading R18n' do
+			subject { controller.r18n.locale.code }
+
 			describe 'cache clearing' do
 				let(:initialize_controller_times) { 5 }
 
@@ -97,8 +99,6 @@ describe Flame::R18n::Initialization do
 					it { expect(R18n).not_to have_received(:clear_cache!) }
 				end
 			end
-
-			subject { controller.r18n.locale.code }
 
 			context 'with locale in param' do
 				let(:query_string) { 'locale=de' }
