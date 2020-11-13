@@ -36,9 +36,9 @@ describe Flame::R18n::Initialization do
 		}
 	end
 
-	let(:query_string) {}
+	let(:query_string) { nil }
 	let(:rack_session) { {} }
-	let(:accept_language) {}
+	let(:accept_language) { nil }
 
 	let(:controller) { initialize_controller }
 
