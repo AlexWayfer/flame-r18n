@@ -1,7 +1,12 @@
 # Flame R18n
 
-[R18n](https://github.com/ai/r18n) helper for
-[Flame](https://github.com/AlexWayfer/flame) applications.
+Flame plugin which provides
+[i18n and L10n](https://en.wikipedia.org/wiki/Internationalization_and_localization) support
+to your web application.
+
+It is a wrapper for [R18n core library](https://github.com/r18n/r18n-core).
+See [R18n documentation](https://github.com/r18n/r18n-core/blob/master/README.md)
+for more information.
 
 [![Cirrus CI - Base Branch Build Status](https://img.shields.io/cirrus/github/AlexWayfer/flame-r18n?style=flat-square)](https://cirrus-ci.com/github/AlexWayfer/flame-r18n)
 [![Codecov branch](https://img.shields.io/codecov/c/github/AlexWayfer/flame-r18n/master.svg?style=flat-square)](https://codecov.io/gh/AlexWayfer/flame-r18n)

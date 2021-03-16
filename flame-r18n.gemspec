@@ -4,11 +4,10 @@ Gem::Specification.new do |spec|
 	spec.name        = 'flame-r18n'
 	spec.version     = '2.3.1'
 
-	spec.summary     = 'R18n plugin for Flame-framework'
+	spec.summary     = 'Flame plugin which provides i18n and L10n support'
 	spec.description = <<~DESC
-		Flame extension which provides i18n support to translate
-		your web application. It is a wrapper for R18n core library.
-		See R18n documentation for more information.
+		Flame plugin which provides i18n and L10n support to your web application.
+		It is a wrapper for R18n core library. See R18n documentation for more information.
 	DESC
 
 	spec.authors     = ['Alexander Popov']
