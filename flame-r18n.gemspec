@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'lib/flame/r18n/version'
+
 Gem::Specification.new do |spec|
 	spec.name        = 'flame-r18n'
-	spec.version     = '2.3.1'
+	spec.version     = Flame::R18n::VERSION
 
 	spec.summary     = 'Flame plugin which provides i18n and L10n support'
 	spec.description = <<~DESC
