@@ -2,6 +2,6 @@
 
 module Flame
 	module R18n
-		VERSION = '2.3.1'
+		VERSION = '3.0.0.rc1'
 	end
 end

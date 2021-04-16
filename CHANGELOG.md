@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 3.0.0.rc1 (2021-04-16)
+
 *   Add tests, fix some errors.
     100% coverage, yay!
 *   Update version of Flame dependency to `~> 5.0`.
@@ -16,6 +18,7 @@
 *   Add `rubocop-performance` and `rubocop-rspec`.
     Resolve new offenses.
 *   Support Ruby 3.
+*   Move gem version to a separate file.
 *   Add RuboCop task for CI.
 *   Add `remark` task for CI.
 *   Replace `rake` with `toys`.
