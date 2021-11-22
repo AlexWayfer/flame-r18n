@@ -1,6 +1,6 @@
 # Changelog
 
-## master (unreleased)
+## Unreleased
 
 ## 3.0.0.rc1 (2021-04-16)
 
