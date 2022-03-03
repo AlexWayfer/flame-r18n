@@ -45,7 +45,7 @@ module Flame
 				return request.fullpath.to_s unless request_path_with_available_locale?
 
 				Flame::Path.merge(
-					request.fullpath.to_s.split('/')[2..-1].unshift('/')
+					request.fullpath.to_s.split('/')[2..].unshift('/')
 				)
 			end
 
