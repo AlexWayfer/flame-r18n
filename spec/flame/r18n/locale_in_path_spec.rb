@@ -70,7 +70,7 @@ describe Flame::R18n::LocaleInPath do
 		example_controller = self.example_controller
 
 		Class.new(Flame::Application) do
-			::R18n.default_places = File.join config[:root_dir], 'locales'
+			R18n.default_places = File.join config[:root_dir], 'locales'
 
 			mount site_controller, '/:?locale' do
 				mount example_controller, '/'

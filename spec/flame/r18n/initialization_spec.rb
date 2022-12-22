@@ -18,7 +18,7 @@ describe Flame::R18n::Initialization do
 		controller_class = self.controller_class
 
 		Class.new(Flame::Application) do
-			::R18n.default_places = File.join config[:root_dir], locales_dir
+			R18n.default_places = File.join config[:root_dir], locales_dir
 
 			mount controller_class
 		end
