@@ -11,7 +11,6 @@ for more information.
 [![Cirrus CI - Base Branch Build Status](https://img.shields.io/cirrus/github/AlexWayfer/flame-r18n?style=flat-square)](https://cirrus-ci.com/github/AlexWayfer/flame-r18n)
 [![Codecov branch](https://img.shields.io/codecov/c/github/AlexWayfer/flame-r18n/main.svg?style=flat-square)](https://codecov.io/gh/AlexWayfer/flame-r18n)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/AlexWayfer/flame-r18n.svg?style=flat-square)](https://codeclimate.com/github/AlexWayfer/flame-r18n)
-![Depfu](https://img.shields.io/depfu/AlexWayfer/flame-r18n?style=flat-square)
 [![Inline docs](https://inch-ci.org/github/AlexWayfer/flame-r18n.svg?branch=main)](https://inch-ci.org/github/AlexWayfer/flame-r18n)
 [![license](https://img.shields.io/github/license/AlexWayfer/flame-r18n.svg?style=flat-square)](https://github.com/AlexWayfer/flame-r18n/blob/main/LICENSE.txt)
 [![Gem](https://img.shields.io/gem/v/flame-r18n.svg?style=flat-square)](https://rubygems.org/gems/flame-r18n)
