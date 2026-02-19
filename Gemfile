@@ -11,6 +11,10 @@ group :development do
 	gem 'toys', '~> 0.19.0'
 end
 
+group :development, :audit do
+	gem 'bundler-audit', '~> 0.9.0'
+end
+
 group :test do
 	gem 'rack-test', '~> 2.0'
 	gem 'rspec', '~> 3.9'
