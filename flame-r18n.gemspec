@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
 
 	spec.required_ruby_version = '>= 3.2', '< 4'
 
-	spec.add_dependency 'flame', '>= 5.0.0.rc3', '< 6'
+	spec.add_dependency 'flame', '~> 5.0'
 	spec.add_dependency 'r18n-core', '~> 5.0'
 end
